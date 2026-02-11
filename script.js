@@ -147,6 +147,14 @@ if (inscricaoForm) {
       }
     }
 
+    if (fieldId === 'diretoria-insano') {
+      const allowedDiretorias = Array.from(field.options).map((opt) => opt.value).filter(Boolean);
+      if (!allowedDiretorias.includes(field.value)) {
+        setFieldError(field, 'Selecione uma diretoria valida.');
+        return false;
+      }
+    }
+
     clearFieldError(field);
     return true;
   }

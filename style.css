@@ -1275,6 +1275,9 @@ body {
     max-width: 100%;
     font-size: 0.8rem;
     padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
   }
 
@@ -1324,6 +1327,9 @@ body {
   .esportes-grid span {
     width: fit-content;
     max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
   }
 
