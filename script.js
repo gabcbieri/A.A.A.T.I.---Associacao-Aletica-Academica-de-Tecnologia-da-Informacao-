@@ -44,13 +44,11 @@ faqItems.forEach((item) => {
 });
 
 const inscricaoForm = document.querySelector('.sejainsano-form');
-const nextInsanoInput = document.querySelector('#next-insano');
+const formTsInput = document.querySelector('#form-ts-insano');
 
 if (inscricaoForm) {
-  if (nextInsanoInput) {
-    const basePath = window.location.pathname.replace(/[^/]*$/, '');
-    const safeOrigin = window.location.origin && window.location.origin !== 'null' ? window.location.origin : '';
-    nextInsanoInput.value = safeOrigin ? `${safeOrigin}${basePath}obrigado.html` : 'obrigado.html';
+  if (formTsInput) {
+    formTsInput.value = String(Math.floor(Date.now() / 1000));
   }
 
   const requiredFields = Array.from(inscricaoForm.querySelectorAll('[required]'));

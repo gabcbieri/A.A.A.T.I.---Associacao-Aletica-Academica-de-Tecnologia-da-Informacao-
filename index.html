@@ -245,12 +245,9 @@
                     </div>
                 </div>
 
-                <form class="sejainsano-form" action="https://formsubmit.co/gabriellacbarbieri@gmail.com" method="post" novalidate>
-                    <input type="hidden" name="_subject" value="Nova inscrição - Seja Insano">
-                    <input type="hidden" name="_template" value="table">
-                    <input type="hidden" id="next-insano" name="_next" value="">
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="text" name="_honey" class="campo-oculto" tabindex="-1" autocomplete="off">
+                <form class="sejainsano-form" action="submit_inscricao.php" method="post" novalidate>
+                    <input type="text" name="website" class="campo-oculto" tabindex="-1" autocomplete="off">
+                    <input type="hidden" id="form-ts-insano" name="form_ts" value="">
 
                     <label for="nome-insano">Nome completo</label>
                     <input type="text" id="nome-insano" name="nome" placeholder="Digite seu nome" required>

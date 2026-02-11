@@ -7,7 +7,7 @@ $destino = 'gabriellacbarbieri@gmail.com';
 $cursosPermitidos = ['ADS', 'TI', 'Ciência de Dados'];
 $periodosPermitidos = ['Manhã', 'Tarde', 'Noite', 'EAD'];
 
-function responder(int $statusCode, string $titulo, string $mensagem): void
+function responderErro(int $statusCode, string $titulo, string $mensagem): void
 {
     http_response_code($statusCode);
     header('Content-Type: text/html; charset=UTF-8');
@@ -29,18 +29,18 @@ function limpar(string $valor): string
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    responder(405, 'Método inválido', 'Use o formulário para enviar sua inscrição.');
+    responderErro(405, 'Metodo invalido', 'Use o formulario para enviar sua inscricao.');
 }
 
 $website = limpar((string)($_POST['website'] ?? ''));
 if ($website !== '') {
-    responder(400, 'Falha de validação', 'Não foi possível processar sua inscrição.');
+    responderErro(400, 'Falha de validacao', 'Nao foi possivel processar sua inscricao.');
 }
 
 $formTs = (int)($_POST['form_ts'] ?? 0);
 $agora = time();
 if ($formTs <= 0 || ($agora - $formTs) < 3 || ($agora - $formTs) > 7200) {
-    responder(400, 'Falha de validação', 'Tempo de envio inválido. Recarregue a página e tente novamente.');
+    responderErro(400, 'Falha de validacao', 'Tempo de envio invalido. Recarregue a pagina e tente novamente.');
 }
 
 $ip = $_SERVER['REMOTE_ADDR'] ?? 'desconhecido';
@@ -49,7 +49,7 @@ $rateFile = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'insano_rate_' . $rateKey
 if (is_file($rateFile)) {
     $ultimoEnvio = (int)file_get_contents($rateFile);
     if (($agora - $ultimoEnvio) < 20) {
-        responder(429, 'Aguarde para reenviar', 'Espere alguns segundos antes de tentar novamente.');
+        responderErro(429, 'Aguarde para reenviar', 'Espere alguns segundos antes de tentar novamente.');
     }
 }
 @file_put_contents($rateFile, (string)$agora, LOCK_EX);
@@ -63,42 +63,42 @@ $mensagem = trim((string)($_POST['mensagem'] ?? ''));
 $termos = (string)($_POST['termos'] ?? '');
 
 if ($nome === '' || mb_strlen($nome) < 5 || mb_strlen($nome) > 120) {
-    responder(400, 'Falha de validação', 'Informe um nome válido.');
+    responderErro(400, 'Falha de validacao', 'Informe um nome valido.');
 }
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL) || mb_strlen($email) > 190) {
-    responder(400, 'Falha de validação', 'Informe um e-mail válido.');
+    responderErro(400, 'Falha de validacao', 'Informe um e-mail valido.');
 }
 
 $whatsDigits = preg_replace('/\D+/', '', $whatsapp);
 if ($whatsDigits === null || strlen($whatsDigits) < 10 || strlen($whatsDigits) > 13) {
-    responder(400, 'Falha de validação', 'Informe um WhatsApp válido com DDD.');
+    responderErro(400, 'Falha de validacao', 'Informe um WhatsApp valido com DDD.');
 }
 
 if (!in_array($curso, $cursosPermitidos, true)) {
-    responder(400, 'Falha de validação', 'Curso inválido. Escolha uma opção permitida.');
+    responderErro(400, 'Falha de validacao', 'Curso invalido. Escolha uma opcao permitida.');
 }
 
 if (!in_array($periodo, $periodosPermitidos, true)) {
-    responder(400, 'Falha de validação', 'Período inválido. Escolha uma opção permitida.');
+    responderErro(400, 'Falha de validacao', 'Periodo invalido. Escolha uma opcao permitida.');
 }
 
 if ($termos !== 'on') {
-    responder(400, 'Falha de validação', 'É necessário confirmar os termos.');
+    responderErro(400, 'Falha de validacao', 'E necessario confirmar os termos.');
 }
 
 if (mb_strlen($mensagem) > 1200) {
-    responder(400, 'Falha de validação', 'Mensagem muito longa.');
+    responderErro(400, 'Falha de validacao', 'Mensagem muito longa.');
 }
 
-$assunto = 'Nova inscrição - Seja Insano';
-$corpo = "Nova inscrição recebida\n\n";
+$assunto = 'Nova inscricao - Seja Insano';
+$corpo = "Nova inscricao recebida\n\n";
 $corpo .= "Nome: {$nome}\n";
 $corpo .= "E-mail: {$email}\n";
 $corpo .= "WhatsApp: {$whatsapp}\n";
 $corpo .= "Curso: {$curso}\n";
-$corpo .= "Período: {$periodo}\n";
-$corpo .= "Mensagem: " . ($mensagem !== '' ? $mensagem : 'Não informada') . "\n";
+$corpo .= "Periodo: {$periodo}\n";
+$corpo .= "Mensagem: " . ($mensagem !== '' ? $mensagem : 'Nao informada') . "\n";
 $corpo .= "IP: {$ip}\n";
 $corpo .= "Data: " . date('d/m/Y H:i:s') . "\n";
 
@@ -110,7 +110,8 @@ $headers[] = 'Reply-To: ' . $email;
 
 $enviado = @mail($destino, $assunto, $corpo, implode("\r\n", $headers));
 if (!$enviado) {
-    responder(500, 'Falha no envio', 'Não foi possível enviar agora. Tente novamente em alguns minutos.');
+    responderErro(500, 'Falha no envio', 'Nao foi possivel enviar agora. Tente novamente em alguns minutos.');
 }
 
-responder(200, 'Inscrição enviada', 'Recebemos seus dados e a diretoria fará a validação e análise.');
+header('Location: obrigado.html', true, 302);
+exit;
