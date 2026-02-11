@@ -1,11 +1,11 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="img/logoinsano.png" type="image/x-icon">
-    <title>Atlética Insano</title>
+    <title>A.A.A.T.I - Insano Acadêmico</title>
 
     <link rel="stylesheet" href="style.css" />
 </head>
@@ -13,15 +13,16 @@
 <body>
     <header class="topo">
         <button class="menu-toggle" aria-label="Abrir menu">
-            ☰
+            â˜°
         </button>
         <nav class="menu-sidebar">
-            <a href="#inicio">Início</a>
+            <a href="#inicio">Iní­cio</a>
             <a href="#sobre">Sobre</a>
             <a href="#esportes">Esportes</a>
             <a href="#projetos">Projetos</a>
             <a href="#parcerias">Parcerias</a>
-            <a href="#socio">Seja sócio</a>
+            <a href="#socio">Seja Sócio</a>
+            <a href="#sejainsano">Seja Insano</a>
             <a href="#loja">Loja</a>
             <a href="#eventos">Eventos</a>
             <a href="#diretoria">Diretoria</a>
@@ -29,15 +30,16 @@
             <a href="#contato">Contato</a>
         </nav>
         <nav class="menu menu-esquerdo">
-            <a href="#inicio">Início</a>
+            <a href="#inicio">Iní­cio</a>
             <a href="#sobre">Sobre</a>
             <a href="#esportes">Esportes</a>
             <a href="#projetos">Projetos</a>
             <a href="#parcerias">Parcerias</a>
-            <a href="#socio">Seja sócio</a>
+            <a href="#socio">Seja Sócio</a>
         </nav>
 
         <nav class="menu menu-direito">
+            <a href="#sejainsano">Seja Insano</a>
             <a href="#loja">Loja</a>
             <a href="#eventos">Eventos</a>
             <a href="#diretoria">Conheça a Diretoria</a>
@@ -160,15 +162,11 @@
                 </div>
 
                 <div class="parceiro">
-                    <img src="img/parceiros/wizardd.jpg" alt="Wizard" />
-                </div>
-
-                <div class="parceiro">
                     <img src="img/parceiros/sharkattack.jpg" alt="Shark Atack" />
                 </div>
 
                 <div class="parceiro">
-                    <img src="img/parceiros/pedrao.jpg" alt="Pedrão" />
+                    <img src="img/parceiros/pedrao.jpg" alt="PedrÃ£o" />
                 </div>
 
                 <div class="parceiro">
@@ -219,15 +217,89 @@
             </div>
         </div>
     </section>
+    <section class="sejainsano" id="sejainsano">
+        <div class="sejainsano-container">
+            <h2 class="sejainsano-titulo">Seja Insano</h2>
 
+            <p class="sejainsano-texto">
+                Quer viver a atlética no modo completo? Preencha sua inscrição e entre para a comunidade Insano.
+                Após o envio, a diretoria entra em contato com as orientações de ativação.
+            </p>
+
+            <div class="sejainsano-grid">
+                <div class="sejainsano-info">
+                    <h3>Como funciona</h3>
+                    <div class="sejainsano-passos">
+                        <div class="passo">
+                            <strong>1. Preencha o formulário</strong>
+                            <p>Informe seus dados básicos e a forma de contato principal.</p>
+                        </div>
+                        <div class="passo">
+                            <strong>2. Dados em validação</strong>
+                            <p>As informações enviadas são validadas e analisadas pela diretoria para definir seu possível ingresso como diretoria da Insano.</p>
+                        </div>
+                        <div class="passo">
+                            <strong>3. Conclua sua entrada</strong>
+                            <p>Se aprovado no processo, você recebe o retorno oficial com os próximos passos.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="sejainsano-form" action="https://formsubmit.co/gabriellacbarbieri@gmail.com" method="post" novalidate>
+                    <input type="hidden" name="_subject" value="Nova inscrição - Seja Insano">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" id="next-insano" name="_next" value="">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="text" name="_honey" class="campo-oculto" tabindex="-1" autocomplete="off">
+
+                    <label for="nome-insano">Nome completo</label>
+                    <input type="text" id="nome-insano" name="nome" placeholder="Digite seu nome" required>
+
+                    <label for="email-insano">E-mail</label>
+                    <input type="email" id="email-insano" name="email" placeholder="Digite seu e-mail" required>
+
+                    <label for="whats-insano">WhatsApp</label>
+                    <input type="tel" id="whats-insano" name="whatsapp" placeholder="(00) 00000-0000" required>
+
+                    <label for="curso-insano">Curso</label>
+                    <select id="curso-insano" name="curso" required>
+                        <option value="" selected disabled>Selecione</option>
+                        <option>ADS</option>
+                        <option>TI</option>
+                        <option>Ciência de Dados</option>
+                    </select>
+
+                    <label for="periodo-insano">Período</label>
+                    <select id="periodo-insano" name="periodo" required>
+                        <option value="" selected disabled>Selecione</option>
+                        <option>Manhã</option>
+                        <option>Tarde</option>
+                        <option>Noite</option>
+                        <option>EAD</option>
+                    </select>
+
+                    <label for="mensagem-insano">Mensagem (opcional)</label>
+                    <textarea id="mensagem-insano" name="mensagem" rows="4"
+                        placeholder="Conte um pouco sobre seu interesse em entrar para a Insano"></textarea>
+
+                    <label class="check-termo">
+                        <input type="checkbox" name="termos" required>
+                        <span>Confirmo que as informações enviadas estão corretas.</span>
+                    </label>
+
+                    <button type="submit" class="sejainsano-btn">Enviar inscrição</button>
+                </form>
+            </div>
+        </div>
+    </section>
     <section class="loja" id="loja">
         <div class="loja-container">
             <div class="loja-texto">
                 <h2>Nossa Loja pela Cheers</h2>
                 <p>
-                    Em parceria com a Cheers, nossa loja reúne os produtos oficiais da
-                    Atlética Insano. Camisetas, moletons e itens exclusivos para quem
-                    vive a atlética dentro e fora dos eventos.
+                    Em parceria com a Cheers, nossa loja reÃºne os produtos oficiais da
+                    AtlÃ©tica Insano. Camisetas, moletons e itens exclusivos para quem
+                    vive a atlÃ©tica dentro e fora dos eventos.
                 </p>
 
                 <a href="https://cheers.com.br/pagina/insano-aaati-up~7508" target="_blank" class="loja-btn">
@@ -240,7 +312,7 @@
                     <div class="produto-img">
                         <img src="img/mascote.png" alt="Produto" />
                         <div class="produto-overlay">
-                            <p>Descrição breve do produto.</p>
+                            <p>DescriÃ§Ã£o breve do produto.</p>
                         </div>
                     </div>
                     <h3 class="produto-nome">Nome do Produto</h3>
@@ -297,7 +369,7 @@
                 <div class="evento-card futuro">
                     <img src="img/mascote.png" alt="Evento futuro" />
                     <div class="evento-info">
-                        <h3>Interatléticas 2026</h3>
+                        <h3>Interatlética 2026</h3>
                         <p>Prepare-se para a maior competição universitária do ano.</p>
                         <span class="evento-status">Em breve</span>
                     </div>
@@ -340,13 +412,13 @@
 
                 <div class="membro">
                     <div class="membro-foto">
-                        <img src="img/diretoria/membro2.jpg" alt="Integrante" />
+                        <img src="img/diretoria/matheusesportesgeral.jpeg" alt="Integrante" />
                         <div class="membro-overlay">
-                            <span>Nome do Integrante</span>
+                            <span>Matheus Antoniele</span>
                         </div>
                     </div>
-                    <p class="membro-cargo">Vice-presidente</p>
-                    <p class="membro-nome">Nome do Integrante</p>
+                    <p class="membro-cargo">Diretor Geral de Esportes</p>
+                    <p class="membro-nome">Matheus Antoniele</p>
                 </div>
 
                 <div class="membro">
@@ -356,19 +428,19 @@
                             <span>Gabriella Barbieri</span>
                         </div>
                     </div>
-                    <p class="membro-cargo">Tesoureiro</p>
+                    <p class="membro-cargo">Diretora Geral da Tesoureira</p>
                     <p class="membro-nome">Gabriella Barbieri</p>
                 </div>
 
                 <div class="membro">
                     <div class="membro-foto">
-                        <img src="img/diretoria/membro4.jpg" alt="Integrante" />
+                        <img src="img/diretoria/matheusfut7fustal.jpeg" alt="Integrante" />
                         <div class="membro-overlay">
-                            <span>Nome do Integrante</span>
+                            <span>Matheus</span>
                         </div>
                     </div>
-                    <p class="membro-cargo">Marketing</p>
-                    <p class="membro-nome">Nome do Integrante</p>
+                    <p class="membro-cargo">Diretor de Esportes</p>
+                    <p class="membro-nome">Matheus</p>
                 </div>
             </div>
         </div>
@@ -379,15 +451,15 @@
 
             <div class="faq-grid">
                 <div>
-                    <h2 class="faq-titulo">Dúvidas Frequentes</h2>
+                    <h2 class="faq-titulo">Perguntas Frequentes</h2>
 
                     <div class="faq-lista">
                         <details class="faq-item">
                             <summary>Como faço para me tornar sócio da Insano?</summary>
                             <p>
-                                Você pode adquirir seu plano de sócio diretamente pelo site da
-                                Cheers ou falar com a responsável pelo WhatsApp para tirar dúvidas
-                                e receber orientações.
+                                Para se tornar sócio, é necessário estar matriculado em uma faculdade. Você pode
+                                adquirir seu plano de sócio diretamente pelo site da Cheers ou falar com a responsável
+                                pelo WhatsApp para tirar dúvidas e receber orientações.
                             </p>
                         </details>
 
@@ -396,7 +468,7 @@
                             <p>
                                 Não. Temos modalidades para diferentes níveis, desde iniciantes
                                 até atletas competitivos. O importante é querer participar e fazer
-                                parte da atlética.
+                                parte da atlética!
                             </p>
                         </details>
 
