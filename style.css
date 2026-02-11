@@ -1233,13 +1233,23 @@ body.modal-open {
 
 .esportes-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fit, 120px);
   gap: 16px;
+  justify-content: center;
   margin-bottom: 40px;
 }
 
 .esportes-grid span {
-  padding: 14px 18px;
+  width: 120px;
+  height: 52px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -1455,19 +1465,14 @@ body.modal-open {
   }
 
   .esportes-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    justify-items: center;
+    grid-template-columns: repeat(auto-fit, 120px);
   }
 
   .esportes-grid span {
-    width: fit-content;
-    max-width: 100%;
     font-size: 0.8rem;
-    padding: 10px 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    width: 120px;
+    height: 52px;
+    padding: 0 10px;
   }
 
   .faq-grid {
@@ -1509,17 +1514,12 @@ body.modal-open {
   }
 
   .esportes-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    justify-items: center;
+    grid-template-columns: repeat(auto-fit, 120px);
   }
 
   .esportes-grid span {
-    width: fit-content;
-    max-width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    width: 120px;
+    height: 52px;
   }
 
   .esportes-acoes {
@@ -1643,8 +1643,7 @@ body.modal-open {
   }
 
   .esportes-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    justify-items: center;
+    grid-template-columns: repeat(auto-fit, 120px);
   }
 
   .faq-grid {
