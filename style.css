@@ -14,6 +14,10 @@ body {
   font-family: sans-serif;
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
 .skip-link {
   position: absolute;
   top: -44px;
@@ -415,6 +419,7 @@ body {
 }
 
 .produto-overlay {
+  display: none;
   position: absolute;
   inset: 0;
 
@@ -525,6 +530,120 @@ body {
 .evento-card.passado .evento-status {
   background: rgba(255,255,255,0.15);
   color: #ffffff;
+}
+
+.evento-detalhes {
+  cursor: pointer;
+}
+
+.evento-detalhes:focus-visible {
+  outline: 2px solid #ff6f00;
+  outline-offset: 4px;
+}
+
+.evento-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: none;
+}
+
+.evento-modal.active {
+  display: grid;
+  place-items: center;
+}
+
+.evento-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.evento-modal-content {
+  position: relative;
+  width: min(92vw, 620px);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: #1f1f1f;
+  padding: 24px;
+  z-index: 1;
+}
+
+.evento-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.evento-modal-content h3 {
+  color: #ffffff;
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+  padding-right: 36px;
+}
+
+.evento-modal-descricao {
+  color: #cfcfcf;
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+.evento-modal-meta {
+  color: #e5e5e5;
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+.evento-modal-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.evento-modal-btn {
+  padding: 12px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.2s ease;
+}
+
+.evento-google {
+  background: #ffffff;
+  color: #000000;
+}
+
+.evento-ics {
+  background: #ff6f00;
+  color: #ffffff;
+}
+
+.evento-modal-btn:hover {
+  transform: scale(1.03);
+}
+
+@media (max-width: 480px) {
+  .evento-modal-content {
+    padding: 20px 16px;
+  }
+
+  .evento-modal-acoes {
+    flex-direction: column;
+  }
+
+  .evento-modal-btn {
+    width: 100%;
+    text-align: center;
+  }
 }
 
 .contato {

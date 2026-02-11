@@ -337,9 +337,6 @@
                 <div class="produto">
                     <div class="produto-img">
                         <img src="img/mascote.png" alt="Camiseta oficial da Atlética Insano" />
-                        <div class="produto-overlay">
-                            <p>Camiseta oficial para treinos, jogos e eventos da atlética.</p>
-                        </div>
                     </div>
                     <h3 class="produto-nome">Camiseta Oficial</h3>
                 </div>
@@ -347,9 +344,6 @@
                 <div class="produto">
                     <div class="produto-img">
                         <img src="img/mascote.png" alt="Moletom da Atlética Insano" />
-                        <div class="produto-overlay">
-                            <p>Moletom premium para representar a Insano em qualquer lugar.</p>
-                        </div>
                     </div>
                     <h3 class="produto-nome">Moletom Insano</h3>
                 </div>
@@ -357,9 +351,6 @@
                 <div class="produto">
                     <div class="produto-img">
                         <img src="img/mascote.png" alt="Caneca personalizada da Insano" />
-                        <div class="produto-overlay">
-                            <p>Caneca personalizada para o dia a dia da comunidade Insano.</p>
-                        </div>
                     </div>
                     <h3 class="produto-nome">Caneca Personalizada</h3>
                 </div>
@@ -367,9 +358,6 @@
                 <div class="produto">
                     <div class="produto-img">
                         <img src="img/mascote.png" alt="Boné oficial da Atlética Insano" />
-                        <div class="produto-overlay">
-                            <p>Boné oficial com identidade Insano para eventos e jogos.</p>
-                        </div>
                     </div>
                     <h3 class="produto-nome">Boné Oficial</h3>
                 </div>
@@ -377,9 +365,6 @@
                 <div class="produto">
                     <div class="produto-img">
                         <img src="img/mascote.png" alt="Ecobag da Atlética Insano" />
-                        <div class="produto-overlay">
-                            <p>Ecobag exclusiva para levar a Insano com você todos os dias.</p>
-                        </div>
                     </div>
                     <h3 class="produto-nome">Ecobag Insano</h3>
                 </div>
@@ -392,7 +377,13 @@
             <h2 class="eventos-titulo">Eventos</h2>
 
             <div class="eventos-grid">
-                <div class="evento-card futuro">
+                <div class="evento-card futuro evento-detalhes" tabindex="0" role="button"
+                    aria-label="Abrir detalhes do evento Interatlética 2026"
+                    data-event-title="Interatlética 2026"
+                    data-event-description="Prepare-se para a maior competição universitária do ano. Acompanhe a programação e represente a Insano."
+                    data-event-start="2026-11-14T08:00"
+                    data-event-end="2026-11-16T18:00"
+                    data-event-location="Curitiba, Paraná">
                     <img src="img/mascote.png" alt="Evento futuro" />
                     <div class="evento-info">
                         <h3>Interatlética 2026</h3>
@@ -419,6 +410,21 @@
             </div>
         </div>
     </section>
+
+    <div class="evento-modal" id="evento-modal" aria-hidden="true">
+        <div class="evento-modal-backdrop" data-close-modal></div>
+        <div class="evento-modal-content" role="dialog" aria-modal="true" aria-labelledby="evento-modal-titulo">
+            <button class="evento-modal-close" type="button" aria-label="Fechar detalhes do evento" data-close-modal>×</button>
+            <h3 id="evento-modal-titulo"></h3>
+            <p class="evento-modal-descricao" id="evento-modal-descricao"></p>
+            <p class="evento-modal-meta" id="evento-modal-data"></p>
+            <p class="evento-modal-meta" id="evento-modal-local"></p>
+            <div class="evento-modal-acoes">
+                <a href="#" target="_blank" class="evento-modal-btn evento-google" id="evento-google-link">Adicionar no Google Calendar</a>
+                <a href="#" class="evento-modal-btn evento-ics" id="evento-ics-link" download="evento-insano.ics">Baixar para Apple/Outlook (.ics)</a>
+            </div>
+        </div>
+    </div>
 
     <section class="diretoria" id="diretoria">
         <div class="diretoria-container">
@@ -462,7 +468,7 @@
                     <div class="membro-foto">
                         <img src="img/diretoria/matheusfut7fustal.jpeg" alt="Integrante" />
                         <div class="membro-overlay">
-                            <span>Matheus</span>
+                            <span>Matheus Mafioletti</span>
                         </div>
                     </div>
                     <p class="membro-cargo">Diretor de Esportes</p>

@@ -23,6 +23,11 @@ document.addEventListener('click', (event) => {
 });
 
 document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && eventoModal && eventoModal.classList.contains('active')) {
+    closeEventoModal();
+    return;
+  }
+
   if (event.key === 'Escape' && menuSidebar.classList.contains('active')) {
     setMenuState(false);
     menuToggle.focus();
@@ -71,6 +76,131 @@ faqItems.forEach((item) => {
       }
     });
   });
+});
+
+const eventoModal = document.querySelector('#evento-modal');
+const eventoCards = document.querySelectorAll('.evento-detalhes');
+const eventoTitulo = document.querySelector('#evento-modal-titulo');
+const eventoDescricao = document.querySelector('#evento-modal-descricao');
+const eventoData = document.querySelector('#evento-modal-data');
+const eventoLocal = document.querySelector('#evento-modal-local');
+const eventoGoogleLink = document.querySelector('#evento-google-link');
+const eventoIcsLink = document.querySelector('#evento-ics-link');
+const closeModalTriggers = document.querySelectorAll('[data-close-modal]');
+let eventoIcsObjectUrl = '';
+
+function toUtcCalendarString(date) {
+  return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+}
+
+function escapeIcsText(value) {
+  return String(value || '')
+    .replace(/\\/g, '\\\\')
+    .replace(/\n/g, '\\n')
+    .replace(/,/g, '\\,')
+    .replace(/;/g, '\\;');
+}
+
+function formatDateTimeRange(startDate, endDate) {
+  const dateFormatter = new Intl.DateTimeFormat('pt-BR', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  });
+  const timeFormatter = new Intl.DateTimeFormat('pt-BR', {
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+
+  const sameDay = startDate.toDateString() === endDate.toDateString();
+  if (sameDay) {
+    return `${dateFormatter.format(startDate)} | ${timeFormatter.format(startDate)} - ${timeFormatter.format(endDate)}`;
+  }
+  return `${dateFormatter.format(startDate)} ${timeFormatter.format(startDate)} até ${dateFormatter.format(endDate)} ${timeFormatter.format(endDate)}`;
+}
+
+function closeEventoModal() {
+  if (!eventoModal) {
+    return;
+  }
+  eventoModal.classList.remove('active');
+  eventoModal.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('modal-open');
+}
+
+function openEventoModalFromCard(card) {
+  if (!eventoModal || !eventoTitulo || !eventoDescricao || !eventoData || !eventoLocal || !eventoGoogleLink || !eventoIcsLink) {
+    return;
+  }
+
+  const title = card.dataset.eventTitle || 'Evento Insano';
+  const description = card.dataset.eventDescription || 'Confira os detalhes do evento.';
+  const location = card.dataset.eventLocation || 'Local a definir';
+  const startRaw = card.dataset.eventStart || '';
+  const endRaw = card.dataset.eventEnd || '';
+  const startDate = new Date(startRaw);
+  const endDate = new Date(endRaw);
+
+  if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime()) || endDate <= startDate) {
+    return;
+  }
+
+  eventoTitulo.textContent = title;
+  eventoDescricao.textContent = description;
+  eventoData.textContent = `Data e horário: ${formatDateTimeRange(startDate, endDate)}`;
+  eventoLocal.textContent = `Local: ${location}`;
+
+  const googleParams = new URLSearchParams({
+    action: 'TEMPLATE',
+    text: title,
+    details: description,
+    location,
+    dates: `${toUtcCalendarString(startDate)}/${toUtcCalendarString(endDate)}`
+  });
+  eventoGoogleLink.href = `https://calendar.google.com/calendar/render?${googleParams.toString()}`;
+
+  if (eventoIcsObjectUrl) {
+    URL.revokeObjectURL(eventoIcsObjectUrl);
+  }
+
+  const icsContent = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Atletica Insano//Eventos//PT-BR',
+    'BEGIN:VEVENT',
+    `UID:${Date.now()}@insano`,
+    `DTSTAMP:${toUtcCalendarString(new Date())}`,
+    `DTSTART:${toUtcCalendarString(startDate)}`,
+    `DTEND:${toUtcCalendarString(endDate)}`,
+    `SUMMARY:${escapeIcsText(title)}`,
+    `DESCRIPTION:${escapeIcsText(description)}`,
+    `LOCATION:${escapeIcsText(location)}`,
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ].join('\r\n');
+
+  const icsBlob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+  eventoIcsObjectUrl = URL.createObjectURL(icsBlob);
+  eventoIcsLink.href = eventoIcsObjectUrl;
+  eventoIcsLink.setAttribute('download', `${title.toLowerCase().replace(/\s+/g, '-')}.ics`);
+
+  eventoModal.classList.add('active');
+  eventoModal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('modal-open');
+}
+
+eventoCards.forEach((card) => {
+  card.addEventListener('click', () => openEventoModalFromCard(card));
+  card.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      openEventoModalFromCard(card);
+    }
+  });
+});
+
+closeModalTriggers.forEach((trigger) => {
+  trigger.addEventListener('click', closeEventoModal);
 });
 
 const inscricaoForm = document.querySelector('.sejainsano-form');
