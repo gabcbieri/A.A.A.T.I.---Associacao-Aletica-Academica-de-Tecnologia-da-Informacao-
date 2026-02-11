@@ -1,9 +1,21 @@
 ﻿<!doctype html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Atlética Insano: esportes, eventos, projetos, parcerias, diretoria e formulário para quem quer viver a experiência universitária completa." />
+    <meta name="theme-color" content="#1c1c1c" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="A.A.A.T.I - Insano Acadêmico" />
+    <meta property="og:description"
+        content="Conheça a Atlética Insano: modalidades esportivas, projetos, eventos e comunidade universitária." />
+    <meta property="og:image" content="img/logoinsano.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="A.A.A.T.I - Insano Acadêmico" />
+    <meta name="twitter:description"
+        content="Conheça a Atlética Insano: modalidades esportivas, projetos, eventos e comunidade universitária." />
+    <link rel="canonical" href="/" />
     <link rel="shortcut icon" href="img/logoinsano.png" type="image/x-icon">
     <title>A.A.A.T.I - Insano Acadêmico</title>
 
@@ -11,12 +23,14 @@
 </head>
 
 <body>
+    <a class="skip-link" href="#inicio">Pular para o conteúdo</a>
     <header class="topo">
-        <button class="menu-toggle" aria-label="Abrir menu">
+        <button class="menu-toggle" aria-label="Abrir menu" aria-controls="menu-mobile" aria-expanded="false"
+            type="button">
             ☰
         </button>
-        <nav class="menu-sidebar">
-            <a href="#inicio">Iní­cio</a>
+        <nav class="menu-sidebar" id="menu-mobile" aria-label="Navegação móvel">
+            <a href="#inicio">Início</a>
             <a href="#sobre">Sobre</a>
             <a href="#esportes">Esportes</a>
             <a href="#projetos">Projetos</a>
@@ -29,8 +43,8 @@
             <a href="#faq">FAQ</a>
             <a href="#contato">Contato</a>
         </nav>
-        <nav class="menu menu-esquerdo">
-            <a href="#inicio">Iní­cio</a>
+        <nav class="menu menu-esquerdo" aria-label="Navegação principal esquerda">
+            <a href="#inicio">Início</a>
             <a href="#sobre">Sobre</a>
             <a href="#esportes">Esportes</a>
             <a href="#projetos">Projetos</a>
@@ -38,7 +52,7 @@
             <a href="#socio">Seja Sócio</a>
         </nav>
 
-        <nav class="menu menu-direito">
+        <nav class="menu menu-direito" aria-label="Navegação principal direita">
             <a href="#sejainsano">Seja Insano</a>
             <a href="#loja">Loja</a>
             <a href="#eventos">Eventos</a>
@@ -48,6 +62,7 @@
         </nav>
     </header>
     <section class="inicio" id="inicio">
+        <h1 class="sr-only">Atlética Insano</h1>
         <img src="img/logoinsano.png" alt="Atlética Insano" class="inicio-img" />
     </section>
 
@@ -58,12 +73,11 @@
             <div class="sobre-texto">
                 <h2>Sobre a Insano</h2>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                    ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex ea commodo consequat. Duis aute irure dolor in
-                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                    pariatur.
+                    A Atlética Insano nasceu para conectar alunos por meio do esporte,
+                    da integração e de projetos que impactam dentro e fora da faculdade.
+                    Aqui, cada integrante encontra espaço para competir, evoluir e viver
+                    a experiência universitária com protagonismo, pertencimento e
+                    comunidade.
                 </p>
             </div>
         </div>
@@ -309,9 +323,9 @@
             <div class="loja-texto">
                 <h2>Nossa Loja pela Cheers</h2>
                 <p>
-                    Em parceria com a Cheers, nossa loja reÃºne os produtos oficiais da
-                    AtlÃ©tica Insano. Camisetas, moletons e itens exclusivos para quem
-                    vive a atlÃ©tica dentro e fora dos eventos.
+                    Em parceria com a Cheers, nossa loja reúne os produtos oficiais da
+                    Atlética Insano. Camisetas, moletons e itens exclusivos para quem
+                    vive a atlética dentro e fora dos eventos.
                 </p>
 
                 <a href="https://cheers.com.br/pagina/insano-aaati-up~7508" target="_blank" class="loja-btn">
@@ -322,52 +336,52 @@
             <div class="loja-grid">
                 <div class="produto">
                     <div class="produto-img">
-                        <img src="img/mascote.png" alt="Produto" />
+                        <img src="img/mascote.png" alt="Camiseta oficial da Atlética Insano" />
                         <div class="produto-overlay">
-                            <p>DescriÃ§Ã£o breve do produto.</p>
+                            <p>Camiseta oficial para treinos, jogos e eventos da atlética.</p>
                         </div>
                     </div>
-                    <h3 class="produto-nome">Nome do Produto</h3>
+                    <h3 class="produto-nome">Camiseta Oficial</h3>
                 </div>
 
                 <div class="produto">
                     <div class="produto-img">
-                        <img src="img/mascote.png" alt="Produto" />
+                        <img src="img/mascote.png" alt="Moletom da Atlética Insano" />
                         <div class="produto-overlay">
-                            <p>Descrição breve do produto.</p>
+                            <p>Moletom premium para representar a Insano em qualquer lugar.</p>
                         </div>
                     </div>
-                    <h3 class="produto-nome">Nome do Produto</h3>
+                    <h3 class="produto-nome">Moletom Insano</h3>
                 </div>
 
                 <div class="produto">
                     <div class="produto-img">
-                        <img src="img/mascote.png" alt="Produto" />
+                        <img src="img/mascote.png" alt="Caneca personalizada da Insano" />
                         <div class="produto-overlay">
-                            <p>Descrição breve do produto.</p>
+                            <p>Caneca personalizada para o dia a dia da comunidade Insano.</p>
                         </div>
                     </div>
-                    <h3 class="produto-nome">Nome do Produto</h3>
+                    <h3 class="produto-nome">Caneca Personalizada</h3>
                 </div>
 
                 <div class="produto">
                     <div class="produto-img">
-                        <img src="img/mascote.png" alt="Produto" />
+                        <img src="img/mascote.png" alt="Boné oficial da Atlética Insano" />
                         <div class="produto-overlay">
-                            <p>Descrição breve do produto.</p>
+                            <p>Boné oficial com identidade Insano para eventos e jogos.</p>
                         </div>
                     </div>
-                    <h3 class="produto-nome">Nome do Produto</h3>
+                    <h3 class="produto-nome">Boné Oficial</h3>
                 </div>
 
                 <div class="produto">
                     <div class="produto-img">
-                        <img src="img/mascote.png" alt="Produto" />
+                        <img src="img/mascote.png" alt="Ecobag da Atlética Insano" />
                         <div class="produto-overlay">
-                            <p>Descrição breve do produto.</p>
+                            <p>Ecobag exclusiva para levar a Insano com você todos os dias.</p>
                         </div>
                     </div>
-                    <h3 class="produto-nome">Nome do Produto</h3>
+                    <h3 class="produto-nome">Ecobag Insano</h3>
                 </div>
             </div>
         </div>
@@ -539,9 +553,8 @@
         </div>
     </section>
 
-    <script src="js/script.js"></script>
-</body>
 <script src="script.js"></script>
+</body>
 
 </html>
 

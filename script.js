@@ -4,6 +4,7 @@ const menuSidebar = document.querySelector('.menu-sidebar');
 function setMenuState(isOpen) {
   menuSidebar.classList.toggle('active', isOpen);
   menuToggle.style.display = isOpen ? 'none' : '';
+  menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
 }
 
 menuToggle.addEventListener('click', (event) => {
@@ -21,10 +22,39 @@ document.addEventListener('click', (event) => {
   }
 });
 
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && menuSidebar.classList.contains('active')) {
+    setMenuState(false);
+    menuToggle.focus();
+  }
+});
+
 menuSidebar.querySelectorAll('a').forEach((link) => {
   link.addEventListener('click', () => {
     setMenuState(false);
   });
+});
+
+document.querySelectorAll('a[target="_blank"]').forEach((link) => {
+  const currentRel = link.getAttribute('rel') || '';
+  const relParts = new Set(currentRel.split(/\s+/).filter(Boolean));
+  relParts.add('noopener');
+  relParts.add('noreferrer');
+  link.setAttribute('rel', Array.from(relParts).join(' '));
+});
+
+const heroImage = document.querySelector('.inicio-img');
+if (heroImage) {
+  heroImage.setAttribute('loading', 'eager');
+  heroImage.setAttribute('fetchpriority', 'high');
+  heroImage.setAttribute('decoding', 'async');
+}
+
+document.querySelectorAll('img:not(.inicio-img)').forEach((image) => {
+  if (!image.hasAttribute('loading')) {
+    image.setAttribute('loading', 'lazy');
+  }
+  image.setAttribute('decoding', 'async');
 });
 
 const faqItems = document.querySelectorAll('.faq-lista details');
