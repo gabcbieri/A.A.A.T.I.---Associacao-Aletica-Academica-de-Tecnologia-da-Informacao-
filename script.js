@@ -44,11 +44,13 @@ faqItems.forEach((item) => {
 });
 
 const inscricaoForm = document.querySelector('.sejainsano-form');
-const formTsInput = document.querySelector('#form-ts-insano');
+const nextInsanoInput = document.querySelector('#next-insano');
 
 if (inscricaoForm) {
-  if (formTsInput) {
-    formTsInput.value = String(Math.floor(Date.now() / 1000));
+  if (nextInsanoInput) {
+    const basePath = window.location.pathname.replace(/[^/]*$/, '');
+    const safeOrigin = window.location.origin && window.location.origin !== 'null' ? window.location.origin : '';
+    nextInsanoInput.value = safeOrigin ? `${safeOrigin}${basePath}obrigado.html` : 'obrigado.html';
   }
 
   const requiredFields = Array.from(inscricaoForm.querySelectorAll('[required]'));
@@ -168,5 +170,55 @@ if (inscricaoForm) {
       submitButton.disabled = true;
       submitButton.textContent = 'Enviando...';
     }
+  });
+}
+
+const revealSelectors = [
+  '.sobre-container',
+  '.esportes-container',
+  '.projetos-titulo',
+  '.projeto-card',
+  '.parcerias-container',
+  '.socio-container',
+  '.sejainsano-container',
+  '.loja-container',
+  '.eventos-container',
+  '.diretoria-container',
+  '.faq-container',
+  '.contato-container'
+];
+
+const revealElements = document.querySelectorAll(revealSelectors.join(', '));
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (!prefersReducedMotion && revealElements.length > 0) {
+  revealElements.forEach((element, index) => {
+    element.classList.add('reveal-on-scroll');
+    element.style.setProperty('--reveal-delay', `${Math.min(index * 40, 240)}ms`);
+  });
+
+  const revealObserver = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      });
+    },
+    {
+      threshold: 0.14,
+      rootMargin: '0px 0px -8% 0px'
+    }
+  );
+
+  revealElements.forEach((element) => {
+    revealObserver.observe(element);
+  });
+} else {
+  revealElements.forEach((element) => {
+    element.classList.add('is-visible');
   });
 }
