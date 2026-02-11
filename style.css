@@ -240,6 +240,47 @@ body.modal-open {
   font-size: 1rem;
 }
 
+.sobre-video-cta {
+  margin-top: 22px;
+}
+
+.sobre-video-cta p {
+  color: #e5e5e5;
+  margin-bottom: 12px;
+}
+
+.sobre-video-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 12px 20px;
+  background: #ff6f00;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sobre-video-btn:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 24px rgba(255, 111, 0, 0.35);
+}
+
+.sobre-video {
+  margin-top: 16px;
+}
+
+.sobre-video video {
+  width: 100%;
+  max-width: 360px;
+  max-height: 300px;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  display: block;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #111111;
+}
+
 
 .projetos {
   min-height: 100vh;

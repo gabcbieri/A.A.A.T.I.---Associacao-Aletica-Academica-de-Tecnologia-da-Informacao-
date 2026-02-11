@@ -78,6 +78,27 @@ faqItems.forEach((item) => {
   });
 });
 
+const sobreVideoBtn = document.querySelector('.sobre-video-btn');
+const sobreVideoContainer = document.querySelector('#sobre-video-container');
+
+if (sobreVideoBtn && sobreVideoContainer) {
+  sobreVideoBtn.addEventListener('click', () => {
+    const isOpen = !sobreVideoContainer.hasAttribute('hidden');
+
+    if (isOpen) {
+      sobreVideoContainer.setAttribute('hidden', '');
+      sobreVideoBtn.setAttribute('aria-expanded', 'false');
+      sobreVideoBtn.textContent = 'Clique aqui!';
+      return;
+    }
+
+    sobreVideoContainer.removeAttribute('hidden');
+    sobreVideoBtn.setAttribute('aria-expanded', 'true');
+    sobreVideoBtn.textContent = 'Ocultar vídeo';
+    sobreVideoContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+}
+
 const eventoModal = document.querySelector('#evento-modal');
 const eventoCards = document.querySelectorAll('.evento-detalhes');
 const eventoTitulo = document.querySelector('#evento-modal-titulo');
@@ -91,6 +112,33 @@ let eventoIcsObjectUrl = '';
 
 function toUtcCalendarString(date) {
   return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+}
+
+function parseLocalDateTime(value) {
+  if (!value || typeof value !== 'string') {
+    return null;
+  }
+
+  const parts = value.split('T');
+  if (parts.length !== 2) {
+    return null;
+  }
+
+  const dateParts = parts[0].split('-').map((part) => Number(part));
+  const timeParts = parts[1].split(':').map((part) => Number(part));
+
+  if (dateParts.length !== 3 || timeParts.length < 2) {
+    return null;
+  }
+
+  const [year, month, day] = dateParts;
+  const [hour, minute] = timeParts;
+
+  if (![year, month, day, hour, minute].every(Number.isFinite)) {
+    return null;
+  }
+
+  return new Date(year, month - 1, day, hour, minute, 0);
 }
 
 function escapeIcsText(value) {
@@ -138,51 +186,68 @@ function openEventoModalFromCard(card) {
   const location = card.dataset.eventLocation || 'Local a definir';
   const startRaw = card.dataset.eventStart || '';
   const endRaw = card.dataset.eventEnd || '';
-  const startDate = new Date(startRaw);
-  const endDate = new Date(endRaw);
-
-  if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime()) || endDate <= startDate) {
-    return;
-  }
+  const startDate = parseLocalDateTime(startRaw);
+  const endDate = parseLocalDateTime(endRaw);
+  const hasValidDates =
+    !!startDate &&
+    !!endDate &&
+    !Number.isNaN(startDate.getTime()) &&
+    !Number.isNaN(endDate.getTime()) &&
+    endDate > startDate;
 
   eventoTitulo.textContent = title;
   eventoDescricao.textContent = description;
-  eventoData.textContent = `Data e horário: ${formatDateTimeRange(startDate, endDate)}`;
+  eventoData.textContent = hasValidDates
+    ? `Data e horário: ${formatDateTimeRange(startDate, endDate)}`
+    : 'Data e horário: em breve';
   eventoLocal.textContent = `Local: ${location}`;
 
-  const googleParams = new URLSearchParams({
-    action: 'TEMPLATE',
-    text: title,
-    details: description,
-    location,
-    dates: `${toUtcCalendarString(startDate)}/${toUtcCalendarString(endDate)}`
-  });
-  eventoGoogleLink.href = `https://calendar.google.com/calendar/render?${googleParams.toString()}`;
+  if (hasValidDates) {
+    const googleParams = new URLSearchParams({
+      action: 'TEMPLATE',
+      text: title,
+      details: description,
+      location,
+      dates: `${toUtcCalendarString(startDate)}/${toUtcCalendarString(endDate)}`
+    });
+    eventoGoogleLink.href = `https://calendar.google.com/calendar/render?${googleParams.toString()}`;
+    eventoGoogleLink.style.pointerEvents = '';
+    eventoGoogleLink.style.opacity = '';
 
-  if (eventoIcsObjectUrl) {
-    URL.revokeObjectURL(eventoIcsObjectUrl);
+    if (eventoIcsObjectUrl) {
+      URL.revokeObjectURL(eventoIcsObjectUrl);
+    }
+
+    const icsContent = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//Atletica Insano//Eventos//PT-BR',
+      'BEGIN:VEVENT',
+      `UID:${Date.now()}@insano`,
+      `DTSTAMP:${toUtcCalendarString(new Date())}`,
+      `DTSTART:${toUtcCalendarString(startDate)}`,
+      `DTEND:${toUtcCalendarString(endDate)}`,
+      `SUMMARY:${escapeIcsText(title)}`,
+      `DESCRIPTION:${escapeIcsText(description)}`,
+      `LOCATION:${escapeIcsText(location)}`,
+      'END:VEVENT',
+      'END:VCALENDAR'
+    ].join('\r\n');
+
+    const icsBlob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+    eventoIcsObjectUrl = URL.createObjectURL(icsBlob);
+    eventoIcsLink.href = eventoIcsObjectUrl;
+    eventoIcsLink.setAttribute('download', `${title.toLowerCase().replace(/\s+/g, '-')}.ics`);
+    eventoIcsLink.style.pointerEvents = '';
+    eventoIcsLink.style.opacity = '';
+  } else {
+    eventoGoogleLink.href = '#';
+    eventoGoogleLink.style.pointerEvents = 'none';
+    eventoGoogleLink.style.opacity = '0.6';
+    eventoIcsLink.href = '#';
+    eventoIcsLink.style.pointerEvents = 'none';
+    eventoIcsLink.style.opacity = '0.6';
   }
-
-  const icsContent = [
-    'BEGIN:VCALENDAR',
-    'VERSION:2.0',
-    'PRODID:-//Atletica Insano//Eventos//PT-BR',
-    'BEGIN:VEVENT',
-    `UID:${Date.now()}@insano`,
-    `DTSTAMP:${toUtcCalendarString(new Date())}`,
-    `DTSTART:${toUtcCalendarString(startDate)}`,
-    `DTEND:${toUtcCalendarString(endDate)}`,
-    `SUMMARY:${escapeIcsText(title)}`,
-    `DESCRIPTION:${escapeIcsText(description)}`,
-    `LOCATION:${escapeIcsText(location)}`,
-    'END:VEVENT',
-    'END:VCALENDAR'
-  ].join('\r\n');
-
-  const icsBlob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
-  eventoIcsObjectUrl = URL.createObjectURL(icsBlob);
-  eventoIcsLink.href = eventoIcsObjectUrl;
-  eventoIcsLink.setAttribute('download', `${title.toLowerCase().replace(/\s+/g, '-')}.ics`);
 
   eventoModal.classList.add('active');
   eventoModal.setAttribute('aria-hidden', 'false');
@@ -191,6 +256,14 @@ function openEventoModalFromCard(card) {
 
 eventoCards.forEach((card) => {
   card.addEventListener('click', () => openEventoModalFromCard(card));
+  const statusTag = card.querySelector('.evento-status');
+  if (statusTag) {
+    statusTag.style.cursor = 'pointer';
+    statusTag.addEventListener('click', (event) => {
+      event.stopPropagation();
+      openEventoModalFromCard(card);
+    });
+  }
   card.addEventListener('keydown', (event) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
@@ -201,6 +274,14 @@ eventoCards.forEach((card) => {
 
 closeModalTriggers.forEach((trigger) => {
   trigger.addEventListener('click', closeEventoModal);
+});
+
+document.addEventListener('click', (event) => {
+  const card = event.target.closest('.evento-detalhes');
+  if (!card) {
+    return;
+  }
+  openEventoModalFromCard(card);
 });
 
 const inscricaoForm = document.querySelector('.sejainsano-form');
